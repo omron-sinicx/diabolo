@@ -41,8 +41,8 @@ Install [ignition-math6](https://ignitionrobotics.org/api/math/6.2/install.html)
 2.  Then, in separate terminals:
     
     `roslaunch diabolo_moveit_config diabolo_moveit_planning_execution.launch`  
-    `rosrun diabolo_play stick_target_to_joint_target_converter`
-    `rosrun diabolo_play diabolo_motion_generator`
+    `rosrun diabolo_play stick_target_to_joint_target_converter`  
+    `rosrun diabolo_play diabolo_motion_generator`  
     
     Note the visualization options in the Displays panel on the left.
 
