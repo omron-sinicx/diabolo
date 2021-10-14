@@ -1,0 +1,132 @@
+<robot name="diabolo">
+  <link name="axis">
+    <contact>
+      <lateral_friction value="1"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.05"/>
+
+      <inertia ixx="1.0e-05" ixy="0" ixz="0.0" iyy="1.0e-05" iyz="0.0" izz="1.0e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diabolo_scene_description/meshes/diabolo_axis.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diabolo_scene_description/meshes/diabolo_axis.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <surface>
+         <bounce restitution_coefficient="0.0" threshold="0.1"/>
+      </surface>
+    </collision>
+  </link>
+
+  <link name="fixators">
+    <contact>
+      <lateral_friction value="1"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.05"/>
+
+      <inertia ixx="1.0e-05" ixy="0" ixz="0.0" iyy="1.0e-05" iyz="0.0" izz="1.0e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diabolo_scene_description/meshes/diabolo_fixators.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diabolo_scene_description/meshes/diabolo_fixators.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <surface>
+         <bounce restitution_coefficient="0.0" threshold="0.1"/>
+      </surface>
+    </collision>
+  </link>
+
+  <link name="shell">
+    <contact>
+      <lateral_friction value="1"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.2"/>
+
+      <inertia ixx="1.0e-05" ixy="0" ixz="0.0" iyy="1.0e-05" iyz="0.0" izz="1.0e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diabolo_scene_description/meshes/diabolo_shell.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://diabolo_scene_description/meshes/diabolo_shell.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <surface>
+         <bounce restitution_coefficient="0.0" threshold="0.1"/>
+      </surface>
+    </collision>
+  </link>
+
+    <joint name="axis_to_fixator" type="fixed">
+      <parent link="axis"/>
+      <child link="fixators"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </joint>
+
+    <joint name="fixators_to_shell" type="fixed">
+      <parent link="fixators"/>
+      <child link="shell"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </joint>
+
+  <gazebo reference="axis">
+      <maxVel value="10.0"/>
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <material>Gazebo/White</material>
+  </gazebo>
+ <gazebo reference="fixators">
+      <maxVel value="10.0"/>
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="shell">
+      <maxVel value="10.0"/>
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo>
+  <plugin name="diabolo_plugin" filename="libdiabolo_plugin.so">
+    <stick_pos_topic>diabolo_stick_poses</stick_pos_topic>
+    <string_length>1.58</string_length>
+  </plugin>
+  </gazebo>
+  <!-- <gazebo reference="axis">
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+  <gazebo reference="fixators">
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+  <gazebo reference="shell">
+  <turnGravityOff>true</turnGravityOff>
+  </gazebo>-->
+  
+</robot>

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if ! git diff --quiet 2> /dev/null; then
+	echo "You have unstaged changes. Commit or stash these, so that tox checks "\
+"the commit you're about to make (or use git commit -n to skip this hook)."
+	GIT_STATE_2=$GIT_STATE_2$GIT_PROMPT_MODIFIED
+	exit 1
+fi
+
+printf "Running tox... "
+
+output=$(tox -e py27-check,py36-check,py36-nocov)
+ret=$?
+
+if [ $ret -eq 0 ]; then
+    echo "ok"
+else
+    echo "fail"
+    echo
+    echo "$output"
+fi
+exit $ret

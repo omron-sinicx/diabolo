@@ -1,0 +1,49 @@
+language: python
+sudo: false
+cache: pip
+env:
+  global:
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS=all
+    - TOXENV=py
+    - PIP=pip
+python:
+  - 2.7
+  - 3.4
+  - 3.5
+  - 3.6
+matrix:
+  include:
+    - env: TOXENV=py27  # 2.7 with old attrs version
+      python: 2.7
+    - env: TOXENV=py27-check
+    - python: 3.6
+      env: TOXENV=py36-check
+    - env: TOXENV=docs
+    - os: osx
+      language: generic
+      env: PIP=pip2  # Awkward workaround for https://github.com/travis-ci/travis-ci/issues/8829
+before_install:
+  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install python3; fi
+  - python --version
+  - uname -a
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then lsb_release -a; fi
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip install virtualenv; fi
+  - virtualenv --version
+  - easy_install --version
+  - $PIP --version
+  - $PIP install tox
+  - tox --version
+script:
+  - tox -v
+after_success:
+  - tox -e codecov
+after_failure:
+  - more .tox/log/* | cat
+  - more .tox/*/log/* | cat
+notifications:
+  email:
+    on_success: never
+    on_failure: always

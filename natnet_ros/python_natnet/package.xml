@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>python_natnet</name>
+  <version>0.1.0</version>
+  <description>Python NatNet 3 library</description>
+  <maintainer email="matthew@matthewedwards.co.nz">Matthew Edwards</maintainer>
+  <author email="matthew@matthewedwards.co.nz">Matthew Edwards</author>
+  <license>BSD</license>
+  <url type="website">https://github.com/mje-nz/python_natnet</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>python-attrs</depend>  <!-- Installed by default in Kinetic -->
+  <depend>python-enum34</depend>  <!-- Python < 3.3 only, which is all the ROS distros supported -->
+</package>

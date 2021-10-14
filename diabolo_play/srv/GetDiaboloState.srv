@@ -1,0 +1,10 @@
+std_msgs/Header header
+---
+uint8 REAL=1
+uint8 SIM=2
+diabolo_gazebo/DiaboloState state
+#This is a point containing filtered values of the diabolo euler angles in world frame
+geometry_msgs/Point filtered_angles
+# Type indicates whether the returned state is from the real diabolo or the simulated diabolo
+int32 type
+bool success

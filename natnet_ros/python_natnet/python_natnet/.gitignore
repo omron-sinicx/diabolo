@@ -1,0 +1,13 @@
+.idea/workspace.xml
+.idea/task.xml
+.idea/markdown-navigator*
+*.pyc
+*.cache
+.tox
+.coverage
+*.egg-info
+build/
+dist/
+htmlcov/
+.benchmarks/
+docs/_build

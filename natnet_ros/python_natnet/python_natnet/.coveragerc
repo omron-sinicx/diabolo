@@ -1,0 +1,20 @@
+[paths]
+source =
+   src/natnet
+   */site-packages/natnet
+   *\site-packages\natnet
+
+[run]
+# Measure branch coverage
+branch = true
+# Only inspect these directories
+source =
+    natnet
+    tests
+# Support running in parallel
+parallel = true
+
+[report]
+show_missing = true
+precision = 2
+omit = *migrations*

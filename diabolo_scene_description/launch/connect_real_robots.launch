@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+  This file launches the drivers of the real robots instead of the simulation.
+  The first section starts the robot drivers.
+  The second section starts cameras, grippers, tools etc.
+-->
+<launch>
+
+  <!-- This parameter enables/disables the usage of direct UR script commands in ur_routines/ur_skills. \
+       It cannot be used in simulation. -->
+  <param name="use_real_robot" type="bool" value="true" />
+
+  <!-- ======================================== -->
+  <!-- ===============   Robots  ============== -->
+  <include file="$(find diabolo_scene_description)/launch/osx_arms_bringup.launch"/>
+  
+  <!-- ======================================== -->
+  <!-- ===============   MoCap   ============== -->
+
+  <!-- To run MoCap, execute this on the host first: -->
+  <!-- sudo route add -net 224.0.0.0 netmask 240.0.0.0 enp62s0 -->
+  <!-- https://gitlab.com/sinicx/robotics/on-going/variable-stiffness-wrist/-/issues/25 -->
+  
+  <node name="mocap" pkg="natnet_ros" type="client" args="_server:=192.168.1.30" respawn="true" output="screen"/>
+
+  <!-- ======================================== -->
+    
+  <!-- <include file="$(find diabolo_scene_description)/launch/osx_bringup_cameras.launch"/> -->
+  <!-- <include file="$(find diabolo_scene_description)/launch/diabolo_bringup_cameras.launch"/> -->
+
+  <!-- <include file="$(find diabolo_fastening_tools)/launch/fastening_tools.launch">
+    <arg name="serial_port_1" default="/dev/for_docker/screw" />
+  </include> -->
+
+</launch>

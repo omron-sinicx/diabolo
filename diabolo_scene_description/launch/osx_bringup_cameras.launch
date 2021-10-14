@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+  This file launches the drivers of the real robots instead of the simulation.
+  The first section starts the robot drivers.
+  The second section starts cameras, grippers, tools etc.
+-->
+<launch>
+
+  <!-- Camera -->
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+    <arg name="camera" default="diabolo_bottom_camera"/>
+    <arg name="serial_no" value="819612071364"/> 
+    <arg name="enable_pointcloud" value="false"/>
+    <arg name="fisheye_fps"         default="6"/>
+    <arg name="depth_fps"           default="6"/>
+    <arg name="align_depth"         default="true"/>
+    <arg name="infra_fps"           default="6"/>
+    <arg name="color_fps"           default="6"/>
+    <arg name="color_width"         default="1280"/>
+    <arg name="color_height"        default="720"/>
+    <arg name="enable_infra1"       default="false"/>
+    <arg name="enable_infra2"       default="false"/>
+  </include>
+</launch>

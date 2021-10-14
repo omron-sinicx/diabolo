@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+  <name>diabolo_play</name>
+  <version>0.0.0</version>
+  <description>Diabolo play package</description>
+
+  <maintainer email="f.drigalski@sinicx.com">Felix von Drigalski</maintainer>
+
+  <license>TODO</license>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+
+  <build_depend>std_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <!-- TODO: Make a diabolo_msgs package to store the msgs-->
+  <build_depend>diabolo_gazebo</build_depend>
+  <run_depend>diabolo_gazebo</run_depend>
+  <build_depend>trajectory_msgs</build_depend>
+  <run_depend>trajectory_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>tf_conversions</run_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>tf_conversions</build_depend>
+
+  <build_depend>message_generation</build_depend>
+  <run_depend>message_runtime</run_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>bio_ik</build_depend>
+  
+</package>

@@ -1,0 +1,19 @@
+geometry_msgs/PoseArray left_stick_poses
+geometry_msgs/PoseArray right_stick_poses
+
+# If smooth_robot_trajectory is true, ensure that the returned joint trajectory
+# has continuous velocity and acceleration
+bool smooth_robot_trajectory
+# Time between each point in the trajectory
+float32 stick_update_time_step
+---
+trajectory_msgs/JointTrajectory a_bot_trajectory
+trajectory_msgs/JointTrajectory b_bot_trajectory
+
+# If the returned trajectories have been smoothed, the stick positions might be slightly different. 
+# the new stick postions are stored in the arrays below
+
+geometry_msgs/PoseArray new_left_stick_poses
+geometry_msgs/PoseArray new_right_stick_poses
+bool success                                        
+

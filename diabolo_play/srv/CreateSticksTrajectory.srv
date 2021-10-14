@@ -1,0 +1,32 @@
+uint8 NOTHROW=0
+uint8 THROW=1
+uint8 LOOP=2
+# These are the stick poses that are going to be moved to after the poses in "current_sim_config"
+# The predictor should check the resulting diabolo state from these poses first, then run the prediction service
+# as usual from the calculated state
+#Assume that the stick poses are published at the rate 1.0/stick_update_time_step
+geometry_msgs/PoseArray planned_right_stick_poses
+geometry_msgs/PoseArray planned_left_stick_poses
+
+diabolo_gazebo/DiaboloState[] goal_states
+diabolo_gazebo/DiaboloSimConfig current_sim_config
+#This expected time period between two stick update events
+#This assumes that the time between stick position updates is unconnected to the simulation/prediction time step
+float32 stick_update_time_step 
+int32 motion_flag # Whether the diabolo is expected to fly of the string
+diabolo_play/DiaboloMotionSplineSeeds knot_seeds
+bool constrain_to_YZ
+#If true, try to optimize the trajectory. If false, return the trajectory made from the spline knots as is
+bool optimize
+---
+geometry_msgs/PoseArray right_stick_poses
+geometry_msgs/PoseArray left_stick_poses
+#These are the states determined to be closest to the the goal states in the request
+diabolo_gazebo/DiaboloState[] diabolo_states
+
+#Contains an array of diabolo positions in the best trajectory. Useful to plot the diabolo path as calculated by the prediction module
+geometry_msgs/PoseArray diabolo_trajectory
+
+trajectory_msgs/JointTrajectory a_bot_trajectory
+trajectory_msgs/JointTrajectory b_bot_trajectory
+bool success

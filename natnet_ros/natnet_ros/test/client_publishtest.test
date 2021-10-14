@@ -1,0 +1,41 @@
+<launch>
+  <!-- Make sure to update the other tests if you change this -->
+  <arg name="rate" default="10" />
+  <arg name="coverage" default="true" />
+  <arg name="_launch_prefix" if="$(arg coverage)" value="python -m coverage run -a --source=$(find natnet_ros)" />
+  <arg name="_launch_prefix" unless="$(arg coverage)" value="" />
+
+
+  <node pkg="natnet_ros" type="client" name="mocap" launch-prefix="$(arg _launch_prefix)">
+    <param name="fake" value="True"/>
+    <param name="rate" value="$(arg rate)"/>
+  </node>
+
+  <!-- publishtest is new in Kinetic, so can't run this on Indigo -->
+  <test test-name="fake_publishtest"
+        pkg="rostest" type="publishtest" time-limit="10">
+    <rosparam>
+      topics:
+        - name: /mocap/rigid_bodies/RaceQuad/pose
+          timeout: 2
+        - name: /mocap/rigid_bodies/RaceQuad/marker1
+          timeout: 2
+        - name: /mocap/rigid_bodies/RaceQuad/marker2
+          timeout: 2
+        - name: /mocap/rigid_bodies/RaceQuad/marker3
+          timeout: 2
+        - name: /mocap/rigid_bodies/RaceQuad/marker4
+          timeout: 2
+        - name: /mocap/rigid_bodies/RaceQuad/marker5
+          timeout: 2
+        - name: /mocap/rigid_bodies/RaceQuad/markers
+          timeout: 2
+        - name: /mocap/markers/leftovers
+          timeout: 2
+        - name: /mocap/markers/vis
+          timeout: 2
+        - name: /tf
+          timeout: 2
+    </rosparam>
+  </test>
+</launch>

@@ -1,0 +1,4 @@
+<launch>
+  <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find diabolo_play)/config/visualize.rviz" output="screen">
+  </node>
+</launch>

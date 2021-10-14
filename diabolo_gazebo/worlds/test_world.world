@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+   <physics name="ODE" type="ode"  default="true">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>100</iters>
+        </solver>
+      </ode>
+    </physics>
+   
+    <physics name="BULLET" type="bullet">
+	    <max_step_size>0.0005</max_step_size>
+	    <real_time_update_rate>100.0</real_time_update_rate>
+      <bullet>
+        <solver>
+          <type>sequential_impulse</type>
+	  <iters>100</iters>
+	  <min_step_size>0.000005</min_step_size>
+        </solver>
+      </bullet>
+    </physics>
+    
+    <gui>
+        <camera name='user_camera'>
+        <pose frame=''>2.03416 0.047504 1.44906 0 0.163643 3.09219</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

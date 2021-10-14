@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+
+matrix: 
+  include:
+    - name: indigo
+      env: IMAGE=ros:indigo-perception
+    - name: kinetic
+      env: IMAGE=ros:kinetic-perception  
+    - name: melodic
+      env: IMAGE=ros:melodic-perception
+
+script: 
+  - CODECOV_ENV=`bash <(curl -s https://codecov.io/env)`
+  - docker run -it -v $(pwd):/catkin_ws/src/natnet_ros -w /catkin_ws $CODECOV_ENV $IMAGE src/natnet_ros/ci.sh

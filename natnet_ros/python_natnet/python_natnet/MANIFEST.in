@@ -1,0 +1,27 @@
+graft docs
+graft src
+graft test_data
+graft tests
+graft scripts
+
+prune junk
+prune sdk
+prune .idea
+exclude pre-commit-hook
+
+include AUTHORS.rst
+include CONTRIBUTING.rst
+include README.rst
+include LICENSE
+
+include .coveragerc
+include .cookiecutterrc
+include .editorconfig
+include tox.ini
+
+exclude .codecov.yml
+exclude .travis.yml
+exclude appveyor.yml
+
+
+global-exclude *.py[cod] __pycache__ *.so *.dylib .cache

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Setting values of pull velocity damping factors-->
+  <param name="/pv_cap_scaling_factor" value="1.0" />
+  <param name="/pv_post_cap_scaling_factor" value="1.0" />
+  <param name="/pv_pre_cap_scaling_factor" value="1.0" />
+  
+  <!-- Setting values of robot arm IK goal weights (bio_ik solver)-->
+  <param name="/diabolo_stick_position_goal_weight" value="1.0" />
+  <param name="/diabolo_stick_orientation_goal_weight" value="1.0" />
+  <param name="/min_joint_disp_goal_weight" value="1.0" />
+
+  <!-- Set this to true to restart gazebo when using the diabolo gazebo plugin-->
+  <rosparam param="/use_simulated_diabolo">false</rosparam> 
+  <rosparam param="/use_robot_arms">true</rosparam>
+
+  <arg name="limited" default="false"/> 
+  <arg name="gui" default="true"/>
+  <arg name="spawn_robots" default="true" />
+  <!-- Gazebo needs to start up paused in order for us to be able to set the initial joint configurations.
+       This is a known bug as of July 2018. -->
+  <!--Start gazebo paused only if you  want to use robots-->
+  <group if="$(arg spawn_robots)">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="verbose" value="true"/>
+    <arg name="world_name" value="$(find diabolo_gazebo)/worlds/test_world.world"/>
+  </include>
+  <param name="/using_gazebo_robots" type="bool" value="true"/>
+  </group>
+  <group unless="$(arg spawn_robots)">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="verbose" value="true"/>
+    <arg name="world_name" value="$(find diabolo_gazebo)/worlds/test_world.world"/>
+  </include>
+  <param name="/using_gazebo_robots" type="bool" value="false"/>
+  </group>
+  <!-- startup simulated world -->
+  
+  
+<!--Set spawn_robots to false when launching the file to collect -->
+<group if="$(arg spawn_robots)">
+	<include file="$(find diabolo_scene_description)/launch/base_scene_upload.launch" />
+    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" 
+        args="-urdf -param robot_description -model diabolo_bots 
+        -J a_bot_elbow_joint -1.5708      -J a_bot_shoulder_lift_joint -1.91986   -J a_bot_shoulder_pan_joint 3.14159 
+        -J a_bot_wrist_1_joint -1.22173   -J a_bot_wrist_2_joint 3.14159          -J a_bot_wrist_3_joint 0.0 
+        -J b_bot_elbow_joint 1.5708       -J b_bot_shoulder_lift_joint -1.22173   -J b_bot_shoulder_pan_joint 3.14159
+        -J b_bot_wrist_1_joint -1.91986   -J b_bot_wrist_2_joint 3.14159          -J b_bot_wrist_3_joint 0.0 
+        -unpause" respawn="false" output="screen" />
+        
+  <include file="$(find o2ac_gazebo)/launch/controller_utils.launch"/>
+
+
+  <rosparam file="$(find diabolo_gazebo)/controller/2_bot_controllers.yaml" command="load"/>
+  <node name="a_bot_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn a_bot/scaled_pos_joint_traj_controller" respawn="false" output="screen"/>
+  <node name="b_bot_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn b_bot/scaled_pos_joint_traj_controller" respawn="false" output="screen"/>
+  <!-- <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" args="-d $(find diabolo_gazebo)/config/true.rviz" output="screen" /> -->
+  <!-- <node name="diabolo_spawner" pkg="diabolo_gazebo" type="spawn_diabolo.py" args=" 0 0 1.5" /> -->
+</group>
+    
+
+  
+</launch>

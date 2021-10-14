@@ -1,0 +1,63 @@
+<launch>
+  <!-- Make sure to update the other tests if you change this -->
+  <arg name="rate" default="10" />
+  <arg name="coverage" default="true" />
+  <arg name="_launch_prefix" if="$(arg coverage)" value="python -m coverage run -a --source=$(find natnet_ros)" />
+  <arg name="_launch_prefix" unless="$(arg coverage)" value="" />
+
+
+  <node pkg="natnet_ros" type="client" name="mocap" launch-prefix="$(arg _launch_prefix)">
+    <param name="fake" value="True"/>
+    <param name="rate" value="$(arg rate)"/>
+  </node>
+
+  <test test-name="pose_hztest"
+        pkg="rostest" type="hztest">
+    <rosparam subst_value="True">
+      topic: /mocap/rigid_bodies/RaceQuad/pose
+      hz: $(arg rate)
+      hzerror: 1
+      test_duration: 2
+    </rosparam>
+  </test>
+
+  <test test-name="marker1_hztest"
+        pkg="rostest" type="hztest">
+    <rosparam subst_value="True">
+      topic: /mocap/rigid_bodies/RaceQuad/marker1
+      hz: $(arg rate)
+      hzerror: 1
+      test_duration: 2
+    </rosparam>
+  </test>
+
+  <test test-name="leftovers_hztest"
+        pkg="rostest" type="hztest">
+    <rosparam subst_value="True">
+      topic: /mocap/markers/leftovers
+      hz: $(arg rate)
+      hzerror: 1
+      test_duration: 2
+    </rosparam>
+  </test>
+
+  <test test-name="vis_hztest"
+        pkg="rostest" type="hztest">
+    <rosparam subst_value="True">
+      topic: /mocap/markers/vis
+      hz: $(arg rate)
+      hzerror: 1
+      test_duration: 2
+    </rosparam>
+  </test>
+
+  <test test-name="tf_hztest"
+        pkg="rostest" type="hztest">
+    <rosparam subst_value="True">
+      topic: /tf
+      hz: $(arg rate)
+      hzerror: 1
+      test_duration: 2
+    </rosparam>
+  </test>
+</launch>

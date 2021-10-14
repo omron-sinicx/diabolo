@@ -1,0 +1,8 @@
+attrs
+mock
+multiprocess
+pytest<4
+pytest-benchmark
+pytest-cov
+pytest-timeout<1.3
+pytest-travis-fold

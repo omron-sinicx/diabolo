@@ -1,0 +1,7 @@
+<launch>
+  <!-- <arg name="file_dir" default="/$(find o2ac_scene_description)/../../bagfiles/" /> -->
+
+ <node pkg="diabolo_play" type="stick_target_to_joint_target_converter" name="converter" />
+ <node pkg="diabolo_play" type="p_controller.py" name="p_controller" />
+
+</launch>

@@ -1,0 +1,9 @@
+geometry_msgs/PoseArray right_stick_poses
+geometry_msgs/PoseArray left_stick_poses
+diabolo_gazebo/DiaboloSimConfig sim_config
+float32 stick_update_time_step
+#If true, the trajectory will be shown in rviz
+bool animate
+bool constrain_to_YZ
+---
+diabolo_gazebo/DiaboloState[] diabolo_states

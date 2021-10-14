@@ -1,0 +1,32 @@
+<launch>
+  <arg name="sim" default="false" />
+  <arg name="debug" default="false" />
+  <arg name="config" default="true" />
+
+  <!-- o2ac parameter -->
+  <param name="use_real_robot" type="bool" value="true" />
+  
+  <!-- The two lines below are taken from connect_real_robots.launch and need to be commented out when running Gazebo -->
+  <!-- <include file="$(find diabolo_scene_description)/launch/base_scene_upload.launch" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
+    
+  <!-- Remap follow_joint_trajectory -->
+  <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/>
+  
+  <!-- Launch moveit -->
+  <include file="$(find diabolo_moveit_config)/launch/move_group.launch">
+    <arg name="debug" default="$(arg debug)" />
+  </include>
+
+  <!-- Launch moveit with rviz -->
+  <include file="$(find diabolo_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="debug" default="$(arg debug)" />
+    <arg name="rviz_config" value="$(find diabolo_moveit_config)/launch/true.rviz"/>
+  </include>
+
+  <!-- Visualize mesh for ik interpolation-->
+  <node name="ik_interpolation_markers_pub" pkg="diabolo_play" type="publish_ik_interpolation_bounds.py" args="15" respawn="false" output="screen" />
+
+  <!-- Provide a service to get the observed diabolo state (both sim and real)-->
+  <node name="diabolo_observer" pkg="diabolo_play" type="diabolo_observer.py" respawn="false" output="screen" />
+</launch>

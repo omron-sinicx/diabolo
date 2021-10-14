@@ -1,0 +1,7 @@
+- decide input of diabolo manipulation
+    - stick position or delta stick position
+- apply analytical model of diabolo position (and also diabolo rotation?) to `diabolo_env.py`
+- implement and train learning-based model of diabolo orientation
+- apply it to `diabolo_env.py`
+- consider how to combine analytical model of diabolo position and learning-based model of diabolo orientation
+    - Does is work well just simulating those two models independantly at the same time?

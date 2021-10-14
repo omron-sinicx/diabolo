@@ -1,0 +1,4 @@
+geometry_msgs/Point left_stick_position
+geometry_msgs/Point right_stick_position
+---
+bool success

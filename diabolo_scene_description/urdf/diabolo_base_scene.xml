@@ -1,0 +1,6 @@
+<robot file="diabolo_base_scene.dae">
+        <Manipulator name="diabolo_base_scene">
+          <base>a_bot_base_link</base>
+          <effector>a_bot_wrist_3_link</effector>
+        </Manipulator>
+</robot>
